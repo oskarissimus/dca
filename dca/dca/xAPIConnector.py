@@ -6,7 +6,7 @@ from threading import Thread
 
 import simplejson as json
 
-from dca.models import TradeTransInfo
+from dca.models import Symbol, TradeTransInfo
 
 # set to true on debug environment only
 DEBUG = True
@@ -35,22 +35,6 @@ if DEBUG:
     logger.setLevel(logging.DEBUG)
 else:
     logger.setLevel(logging.CRITICAL)
-
-
-class TransactionSide(object):
-    BUY = 0
-    SELL = 1
-    BUY_LIMIT = 2
-    SELL_LIMIT = 3
-    BUY_STOP = 4
-    SELL_STOP = 5
-
-
-class TransactionType(object):
-    ORDER_OPEN = 0
-    ORDER_CLOSE = 2
-    ORDER_MODIFY = 3
-    ORDER_DELETE = 4
 
 
 class JsonSocket(object):
@@ -254,54 +238,6 @@ class APIStreamClient(JsonSocket):
     def execute(self, dictionary):
         self._sendObj(dictionary)
 
-    def subscribePrice(self, symbol):
-        self.execute(
-            dict(command="getTickPrices", symbol=symbol, streamSessionId=self._ssId)
-        )
-
-    def subscribePrices(self, symbols):
-        for symbolX in symbols:
-            self.subscribePrice(symbolX)
-
-    def subscribeTrades(self):
-        self.execute(dict(command="getTrades", streamSessionId=self._ssId))
-
-    def subscribeBalance(self):
-        self.execute(dict(command="getBalance", streamSessionId=self._ssId))
-
-    def subscribeTradeStatus(self):
-        self.execute(dict(command="getTradeStatus", streamSessionId=self._ssId))
-
-    def subscribeProfits(self):
-        self.execute(dict(command="getProfits", streamSessionId=self._ssId))
-
-    def subscribeNews(self):
-        self.execute(dict(command="getNews", streamSessionId=self._ssId))
-
-    def unsubscribePrice(self, symbol):
-        self.execute(
-            dict(command="stopTickPrices", symbol=symbol, streamSessionId=self._ssId)
-        )
-
-    def unsubscribePrices(self, symbols):
-        for symbolX in symbols:
-            self.unsubscribePrice(symbolX)
-
-    def unsubscribeTrades(self):
-        self.execute(dict(command="stopTrades", streamSessionId=self._ssId))
-
-    def unsubscribeBalance(self):
-        self.execute(dict(command="stopBalance", streamSessionId=self._ssId))
-
-    def unsubscribeTradeStatus(self):
-        self.execute(dict(command="stopTradeStatus", streamSessionId=self._ssId))
-
-    def unsubscribeProfits(self):
-        self.execute(dict(command="stopProfits", streamSessionId=self._ssId))
-
-    def unsubscribeNews(self):
-        self.execute(dict(command="stopNews", streamSessionId=self._ssId))
-
 
 # Command templates
 def baseCommand(commandName, arguments=None):
@@ -319,31 +255,5 @@ def tradeTransactionCommand(trade: TradeTransInfo):
     return baseCommand("tradeTransaction", dict(tradeTransInfo=trade.dict()))
 
 
-# example function for processing ticks from Streaming socket
-def procTickExample(msg):
-    print("TICK: ", msg)
-
-
-# example function for processing trades from Streaming socket
-def procTradeExample(msg):
-    print("TRADE: ", msg)
-
-
-# example function for processing trades from Streaming socket
-def procBalanceExample(msg):
-    print("BALANCE: ", msg)
-
-
-# example function for processing trades from Streaming socket
-def procTradeStatusExample(msg):
-    print("TRADE STATUS: ", msg)
-
-
-# example function for processing trades from Streaming socket
-def procProfitExample(msg):
-    print("PROFIT: ", msg)
-
-
-# example function for processing news from Streaming socket
-def procNewsExample(msg):
-    print("NEWS: ", msg)
+def getSymbolCommand(symbol: Symbol):
+    return baseCommand("getSymbol", dict(symbol=symbol.value))
