@@ -16,4 +16,4 @@ def kupuj(cloud_event):
     )
     settings = Settings()
     client = XTBClientWrapper(settings.user_id, settings.password)
-    client.buy(Symbol.IBTA_UK)
+    client.buy(Symbol.IBTA_UK, 6)

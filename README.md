@@ -20,9 +20,22 @@ gcloud functions deploy dca-xtb-function \
 --runtime=python310 \
 --source=. \
 --entry-point=kupuj \
---trigger-topic=buy_usa_bonds
+--trigger-topic=buy_usa_bonds \
+--env-vars-file=.env.yaml
 ```
 
 ```
 poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
+
+```
+gcloud scheduler jobs create pubsub buy_usa_bonds_daily \
+    --location=europe-central2 \
+    --schedule="0 14 * * 1-5" \
+    --topic=buy_usa_bonds \
+    --message-body="dupa"
+```
+
+```
+gcloud pubsub topics publish buy_usa_bonds --message="dupa"
 ```

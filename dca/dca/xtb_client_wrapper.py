@@ -12,7 +12,7 @@ class XTBClientWrapper:
         self.client = APIClient()
         self.client.execute(loginCommand(userId=user_id, password=password))
 
-    def buy(self, symbol: Symbol):
+    def buy(self, symbol: Symbol, volume: int):
         symbol_data = self.get_symbol(symbol)
         ask = symbol_data.ask
         epsilon = 1
@@ -28,7 +28,7 @@ class XTBClientWrapper:
             symbol=symbol.value,
             tp=0,
             type=0,
-            volume=4,
+            volume=volume,
         )
         return str(self.client.execute(tradeTransactionCommand(t)))
 
