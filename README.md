@@ -8,3 +8,21 @@ dollar-cost averaging dla s&p 500 na platformie xtb
 4. tworzenie zlecenia przez API
 5. przygotować dane zlecenia które ma się tworzyć
 6. napisać skrypt korzystający z apscheduler który kupuje co minutę jednostkę CSPX S&P500
+
+```
+gcloud pubsub topics create buy_usa_bonds
+```
+
+```
+gcloud functions deploy dca-xtb-function \
+--gen2 \
+--region=europe-central2 \
+--runtime=python310 \
+--source=. \
+--entry-point=kupuj \
+--trigger-topic=buy_usa_bonds
+```
+
+```
+poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
