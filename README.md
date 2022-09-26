@@ -10,7 +10,7 @@ dollar-cost averaging dla s&p 500 na platformie xtb
 6. napisać skrypt korzystający z apscheduler który kupuje co minutę jednostkę CSPX S&P500
 
 ```
-gcloud pubsub topics create buy_usa_bonds
+gcloud pubsub topics create buy_on_xtb
 ```
 
 ```
@@ -20,7 +20,7 @@ gcloud functions deploy dca-xtb-function \
 --runtime=python310 \
 --source=. \
 --entry-point=kupuj \
---trigger-topic=buy_usa_bonds \
+--trigger-topic=buy_on_xtb \
 --env-vars-file=.env.yaml
 ```
 
@@ -29,13 +29,22 @@ poetry export -f requirements.txt --output requirements.txt --without-hashes
 ```
 
 ```
-gcloud scheduler jobs create pubsub buy_usa_bonds_daily \
+gcloud scheduler jobs update pubsub buy_usa_bonds_daily \
     --location=europe-central2 \
     --schedule="0 14 * * 1-5" \
-    --topic=buy_usa_bonds \
-    --message-body="dupa"
+    --topic=buy_on_xtb \
+    --message-body='{"symbol": "IBTA.UK", "volume": 6}'
 ```
 
 ```
-gcloud pubsub topics publish buy_usa_bonds --message="dupa"
+# co tydzień we wtorek do 21 dnia miesiąca - czyli co tydzień trzy razy w miesiącu
+gcloud scheduler jobs update pubsub buy_snp500_three_times_a_month \
+    --location=europe-central2 \
+    --schedule="30 14 1-21 * 2" \
+    --topic=buy_on_xtb \
+    --message-body='{"symbol": "CSPX.UK_9", "volume": 1}'
+```
+
+```
+gcloud pubsub topics publish buy_on_xtb --message='{"symbol": "IBTA.UK", "volume": 6}'
 ```
