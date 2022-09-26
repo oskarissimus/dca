@@ -13,5 +13,7 @@ def kupuj(cloud_event):
     raw_message = base64.b64decode(cloud_event.data["message"]["data"]).decode()
     message = Message.parse_raw(raw_message)
     settings = Settings()
-    client = XTBClientWrapper(settings.user_id, settings.password)
+    client = XTBClientWrapper(
+        settings.user_id, settings.password, settings.xtb_api_port
+    )
     client.buy(message.symbol, message.volume)

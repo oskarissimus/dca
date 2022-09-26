@@ -24,6 +24,11 @@ class Symbol(str, Enum):
     IBTA_UK = "IBTA.UK"  # USA Bonds
 
 
+class Port(str, Enum):
+    DEMO = "5124"
+    REAL = "5112"
+
+
 class Currency(str, Enum):
     USD = "USD"
 

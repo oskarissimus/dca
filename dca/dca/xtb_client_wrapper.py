@@ -1,4 +1,4 @@
-from dca.models import Symbol, SymbolReturnData, TradeTransInfo
+from dca.models import Port, Symbol, SymbolReturnData, TradeTransInfo
 from dca.xAPIConnector import (
     APIClient,
     getSymbolCommand,
@@ -8,8 +8,8 @@ from dca.xAPIConnector import (
 
 
 class XTBClientWrapper:
-    def __init__(self, user_id, password):
-        self.client = APIClient()
+    def __init__(self, user_id, password, port: Port):
+        self.client = APIClient(port=int(port))
         self.client.execute(loginCommand(userId=user_id, password=password))
 
     def buy(self, symbol: Symbol, volume: int):
