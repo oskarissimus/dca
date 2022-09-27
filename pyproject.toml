@@ -1,17 +1,17 @@
 [tool.poetry]
-authors = ["Oskar Korczak <oskar.korczak@neontri.com>"]
+authors = ["Oskar Korczak <oskar.korczak@protonmail.com>"]
 description = ""
 name = "dca"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
 PyYAML = "^6.0"
+functions-framework = "^3.2.0"
 pydantic = "^1.10.2"
 python = "^3.8"
 python-dotenv = "^0.21.0"
 requests = "^2.28.1"
 simplejson = "^3.17.6"
-functions-framework = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.15.2"
