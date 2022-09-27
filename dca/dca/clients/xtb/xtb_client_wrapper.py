@@ -1,23 +1,23 @@
-from dca.models import Port, Symbol, SymbolReturnData, TradeTransInfo
-from dca.xAPIConnector import (
+from dca.clients.xtb.x_api_connector import (
     APIClient,
-    getSymbolCommand,
-    loginCommand,
-    tradeTransactionCommand,
+    get_symbol_command,
+    login_command,
+    trade_transaction_command,
 )
+from dca.models.xtb import Port, Symbol, SymbolReturnData, TradeTransInfo
 
 
 class XTBClientWrapper:
     def __init__(self, user_id, password, port: Port):
         self.client = APIClient(port=int(port))
-        self.client.execute(loginCommand(userId=user_id, password=password))
+        self.client.execute(login_command(user_id=user_id, password=password))
 
     def buy(self, symbol: Symbol, volume: int):
         symbol_data = self.get_symbol(symbol)
         ask = symbol_data.ask
         epsilon = 1
         price = ask + epsilon
-        t = TradeTransInfo(
+        trade_trans_info = TradeTransInfo(
             cmd=0,
             customComment="",
             expiration=0,
@@ -30,9 +30,9 @@ class XTBClientWrapper:
             type=0,
             volume=volume,
         )
-        return str(self.client.execute(tradeTransactionCommand(t)))
+        return str(self.client.execute(trade_transaction_command(trade_trans_info)))
 
     def get_symbol(self, symbol: Symbol):
         return SymbolReturnData.parse_obj(
-            self.client.execute(getSymbolCommand(symbol))["returnData"]
+            self.client.execute(get_symbol_command(symbol))["returnData"]
         )
