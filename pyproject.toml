@@ -16,6 +16,10 @@ simplejson = "^3.17.6"
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.15.2"
 pytest = "^5.2"
+mypy = "^0.981"
+pylint = "^2.15.3"
+black = "^22.8.0"
+isort = "^5.10.1"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
