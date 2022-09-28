@@ -851,6 +851,25 @@ python-versions = ">=3.7"
 test = ["pre-commit", "pytest"]
 
 [[package]]
+name = "types-requests"
+version = "2.28.11"
+description = "Typing stubs for requests"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+types-urllib3 = "<1.27"
+
+[[package]]
+name = "types-urllib3"
+version = "1.26.25"
+description = "Typing stubs for urllib3"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "typing-extensions"
 version = "4.3.0"
 description = "Backported and Experimental Type Hints for Python 3.7+"
@@ -927,7 +946,7 @@ docs = ["jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "jaraco.packaging (>=9)
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "73fc859716b15f7d720ba0dbfb07f7edbe8d16654bd33fc9745cdf23335c6d91"
+content-hash = "e0dd47f1400c458bee060612b99955c7ca2f8f2799e79f858a1611413a2e69ad"
 
 [metadata.files]
 appnope = [
@@ -1216,6 +1235,8 @@ tomli = [
 tomlkit = []
 tornado = []
 traitlets = []
+types-requests = []
+types-urllib3 = []
 typing-extensions = []
 urllib3 = []
 watchdog = []

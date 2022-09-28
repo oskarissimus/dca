@@ -12,6 +12,7 @@ python = "^3.8"
 python-dotenv = "^0.21.0"
 requests = "^2.28.1"
 simplejson = "^3.17.6"
+types-requests = "^2.28.11"
 
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.15.2"
