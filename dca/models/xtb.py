@@ -5,23 +5,10 @@ from typing import Optional
 from pydantic import BaseModel
 
 
-class TradeTransInfo(BaseModel):
-    cmd: int
-    customComment: str
-    expiration: int
-    offset: int
-    order: int
-    price: Decimal
-    sl: Decimal
-    symbol: str
-    tp: Decimal
-    type: int
-    volume: Decimal
-
-
 class Symbol(str, Enum):
     CSPX_UK = "CSPX.UK_9"  # SNP 500
     IBTA_UK = "IBTA.UK"  # USA Bonds
+    USD_PLN = "USDPLN"
 
 
 class Port(str, Enum):
@@ -31,6 +18,40 @@ class Port(str, Enum):
 
 class Currency(str, Enum):
     USD = "USD"
+    PLN = "PLN"
+
+
+class Cmd(int, Enum):
+    BUY = 0
+    SELL = 1
+    BUY_LIMIT = 2
+    SELL_LIMIT = 3
+    BUY_STOP = 4
+    SELL_STOP = 5
+    BALANCE = 6
+    CREDIT = 7
+
+
+class Type(int, Enum):
+    OPEN = 0
+    PENDING = 1
+    CLOSE = 2
+    MODIFY = 3
+    DELETE = 4
+
+
+class TradeTransInfo(BaseModel):
+    cmd: Cmd = Cmd.BUY
+    customComment: str = ""
+    expiration: int = 0
+    offset: int = 0
+    order: int = 0
+    price: Decimal
+    sl: Decimal = Decimal(0)
+    symbol: Symbol
+    tp: Decimal = Decimal(0)
+    type: Type = Type.OPEN
+    volume: Decimal
 
 
 class SymbolReturnData(BaseModel):

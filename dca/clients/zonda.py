@@ -15,9 +15,9 @@ class ZondaClient(ExchangeClient):  # pylint: disable=too-few-public-methods
         self._api_secret = api_secret
         self._base_url = "https://api.zonda.exchange/rest"
 
-    def buy_market(self, symbol: Symbol, desired_value: Decimal):
+    def buy_market(self, symbol: Symbol, desired_value_pln: Decimal):
         price = self.fetch_price(symbol)
-        amount = self.calculate_amount(desired_value, price)
+        amount = self.calculate_amount(desired_value_pln, price)
 
         payload = ZondaOfferRequestDTO.buy_market(amount=amount).json()
         url = f"{self._base_url}/trading/offer/{symbol}"
