@@ -5,11 +5,11 @@ from decimal import Decimal
 
 import requests
 
-from dca.clients.exchange_client import ExchangeClient
+from dca.clients.abstract_exchange_client import AbstractExchangeClient
 from dca.models.zonda import Symbol, ZondaOfferRequestDTO, ZondaTickerResponseDTO
 
 
-class ZondaClient(ExchangeClient):  # pylint: disable=too-few-public-methods
+class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-methods
     def __init__(self, api_key: str, api_secret: str) -> None:
         self._api_key = api_key
         self._api_secret = api_secret

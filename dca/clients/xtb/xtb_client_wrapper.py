@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from dca.clients.exchange_client import ExchangeClient
+from dca.clients.abstract_exchange_client import AbstractExchangeClient
 from dca.clients.xtb.x_api_connector import (
     APIClient,
     get_symbol_command,
@@ -10,7 +10,7 @@ from dca.clients.xtb.x_api_connector import (
 from dca.models.xtb import Currency, Port, Symbol, SymbolReturnData, TradeTransInfo
 
 
-class XTBClientWrapper(ExchangeClient):
+class XTBClientWrapper(AbstractExchangeClient):
     def __init__(self, user_id, password, port: Port):
         self.client = APIClient(port=int(port))
         self.client.execute(login_command(user_id=user_id, password=password))
