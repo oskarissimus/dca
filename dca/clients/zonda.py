@@ -5,7 +5,7 @@ from decimal import Decimal
 
 import requests
 
-from dca.clients.abstract_exchange_client import AbstractExchangeClient
+from dca.clients.abstract_exchange_client import AbstractExchangeClient, InvalidSymbolForExchange
 from dca.models.zonda import Symbol, ZondaOfferRequestDTO, ZondaTickerResponseDTO
 
 
@@ -16,6 +16,10 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
         self._base_url = "https://api.zonda.exchange/rest"
 
     def buy_market(self, symbol: Symbol, desired_value_pln: Decimal):
+        if not isinstance(symbol, Symbol):
+            raise InvalidSymbolForExchange(
+                f"Symbol {symbol} is not supported by {self.__class__.__name__}"
+            )
         price = self.fetch_price(symbol)
         amount = self.calculate_amount(desired_value_pln, price)
 
@@ -51,3 +55,11 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
         key = self._api_secret.encode("utf-8")
         msg = f"{self._api_key}{timestamp}{payload}".encode("utf-8")
         return hmac.new(key, msg, "SHA512").hexdigest()
+
+    def parse_symbol(self, symbol_str: str) -> Symbol:
+        try:
+            return Symbol(symbol_str)
+        except ValueError as error:
+            raise InvalidSymbolForExchange(
+                f"Symbol {symbol_str} is not supported by {self.__class__.__name__}"
+            ) from error
