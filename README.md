@@ -48,3 +48,13 @@ gcloud scheduler jobs update pubsub buy_snp500_three_times_a_month \
 ```
 gcloud pubsub topics publish buy_on_xtb --message='{"symbol": "IBTA.UK", "volume": 6}'
 ```
+
+# messages to implement
+
+```
+{"exchange_name": "zonda", "symbol": "BTC-PLN", "desired_value_pln": 6}
+{"exchange_name": "zonda", "symbol": "LTC-PLN", "desired_value_pln": 6}
+{"exchange_name": "zonda", "symbol": "ETH-PLN", "desired_value_pln": 6}
+{"exchange_name": "xtb", "symbol": "CSPX.UK_9", "desired_value_pln": 3000}
+{"exchange_name": "xtb", "symbol": "IBTA.UK", "desired_value_pln": 150}
+```

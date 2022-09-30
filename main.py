@@ -2,8 +2,8 @@ import base64
 
 import functions_framework
 
-from dca.clients.xtb.xtb_client_wrapper import XTBClientWrapper
-from dca.models.xtb import Message
+from dca.clients.exchange_clients import build_exchange_client_by_name
+from dca.models.message import Message
 from dca.settings import Settings
 
 
@@ -13,5 +13,7 @@ def kupuj(cloud_event):
     raw_message = base64.b64decode(cloud_event.data["message"]["data"]).decode()
     message = Message.parse_raw(raw_message)
     settings = Settings()
-    client = XTBClientWrapper(settings.xtb_user_id, settings.xtb_password, settings.xtb_api_port)
-    client.buy(message.symbol, message.volume)
+
+    client = build_exchange_client_by_name(message.exchange_name, settings=settings)
+    symbol = client.parse_symbol(message.symbol)
+    client.buy_market(symbol, message.desired_value_pln)

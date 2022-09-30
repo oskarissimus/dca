@@ -103,8 +103,3 @@ class SymbolReturnData(BaseModel):
     timeString: str
     shortSelling: bool
     currencyPair: bool
-
-
-class Message(BaseModel):
-    symbol: Symbol
-    volume: int
