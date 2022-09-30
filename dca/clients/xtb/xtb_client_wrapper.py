@@ -7,7 +7,7 @@ from dca.clients.xtb.x_api_connector import (
     login_command,
     trade_transaction_command,
 )
-from dca.models.xtb import Port, Symbol, SymbolReturnData, TradeTransInfo
+from dca.models.xtb import Currency, Port, Symbol, SymbolReturnData, TradeTransInfo
 
 
 class XTBClientWrapper(ExchangeClient):
@@ -16,21 +16,32 @@ class XTBClientWrapper(ExchangeClient):
         self.client.execute(login_command(user_id=user_id, password=password))
 
     def buy_market(self, symbol: Symbol, desired_value_pln: Decimal):
-        return self.buy_market_symbol_base_other_than_pln(
-            symbol, desired_value_pln, Symbol.USD_PLN
+        symbol_data = self.get_symbol(symbol)
+        asset_base_currency = symbol_data.currency
+        asset_price = symbol_data.ask
+        volume = self.calculate_volume_for_desired_value(
+            asset_base_currency, desired_value_pln, asset_price
         )
 
-    def buy_market_symbol_base_other_than_pln(
-        self, symbol: Symbol, desired_value_pln: Decimal, symbol_for_currency_convertion: Symbol
-    ):
-        symbol_ask = self.get_symbol_ask(symbol)
-        usd_pln_ask = self.get_symbol_ask(symbol_for_currency_convertion)
-        volume = self.calculate_volume(usd_pln_ask, symbol_ask, desired_value_pln)
-        price = self.calculate_price(symbol_ask)
+        price = self.calculate_price(asset_price)
 
         trade_trans_info = TradeTransInfo(symbol=symbol, volume=volume, price=price)
 
         return str(self.client.execute(trade_transaction_command(trade_trans_info)))
+
+    def calculate_volume_for_desired_value(
+        self, asset_base_currency: Currency, desired_value_pln: Decimal, asset_price: Decimal
+    ):
+        asset_price_in_pln = self.calculate_asset_price_in_pln(asset_price, asset_base_currency)
+        return desired_value_pln / asset_price_in_pln
+
+    def calculate_asset_price_in_pln(self, asset_price: Decimal, asset_base_currency: Currency):
+        if asset_base_currency == Currency.PLN:
+            return asset_price
+        elif asset_base_currency == Currency.USD:
+            return asset_price * self.get_symbol_ask(Symbol.USD_PLN)
+        else:
+            raise Exception("Unsupported currency")
 
     def calculate_volume(
         self, usd_pln_ask: Decimal, symbol_ask: Decimal, desired_value_pln: Decimal
