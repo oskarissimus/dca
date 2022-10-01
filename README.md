@@ -10,10 +10,6 @@ dollar-cost averaging dla s&p 500 na platformie xtb
 6. napisać skrypt korzystający z apscheduler który kupuje co minutę jednostkę CSPX S&P500
 
 ```
-gcloud pubsub topics create buy_on_xtb
-```
-
-```
 gcloud functions deploy dca-xtb-function \
 --gen2 \
 --region=europe-central2 \
@@ -57,4 +53,13 @@ gcloud pubsub topics publish buy_on_xtb --message='{"symbol": "IBTA.UK", "volume
 {"exchange_name": "zonda", "symbol": "ETH-PLN", "desired_value_pln": 6}
 {"exchange_name": "xtb", "symbol": "CSPX.UK_9", "desired_value_pln": 3000}
 {"exchange_name": "xtb", "symbol": "IBTA.UK", "desired_value_pln": 150}
+```
+
+# get roles for specific user
+
+```
+gcloud projects get-iam-policy <YOUR GCLOUD PROJECT>  \
+--flatten="bindings[].members" \
+--format='table(bindings.role)' \
+--filter="bindings.members:<YOUR SERVICE ACCOUNT>"
 ```
