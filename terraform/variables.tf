@@ -1,3 +1,9 @@
 variable "project" {}
+variable "region" {}
 variable "credentials_file" {}
 variable "buy_snp500_command_file" {}
+variable "xtb_user_id" {}
+variable "xtb_password" {}
+variable "xtb_api_port" {}
+variable "zonda_api_key" {}
+variable "zonda_api_secret" {}

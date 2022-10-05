@@ -1,6 +1,9 @@
 from decimal import Decimal
 
-from dca.clients.abstract_exchange_client import AbstractExchangeClient, InvalidSymbolForExchange
+from dca.clients.abstract_exchange_client import (
+    AbstractExchangeClient,
+    InvalidSymbolForExchange,
+)
 from dca.clients.xtb.x_api_connector import (
     APIClient,
     get_symbol_command,
@@ -10,7 +13,9 @@ from dca.clients.xtb.x_api_connector import (
 from dca.models.xtb import Currency, Port, Symbol, SymbolReturnData, TradeTransInfo
 
 
-class XTBClientWrapper(AbstractExchangeClient):  # pylint: disable=too-few-public-methods
+class XTBClientWrapper(
+    AbstractExchangeClient
+):  # pylint: disable=too-few-public-methods
     def __init__(self, user_id, password, port: Port):
         self.client = APIClient(port=int(port))
         self.client.execute(login_command(user_id=user_id, password=password))
@@ -28,22 +33,24 @@ class XTBClientWrapper(AbstractExchangeClient):  # pylint: disable=too-few-publi
         return str(self.client.execute(trade_transaction_command(trade_trans_info)))
 
     def _calculate_volume_for_desired_value(
-        self, asset_base_currency: Currency, desired_value_pln: Decimal, asset_price: Decimal
+        self,
+        asset_base_currency: Currency,
+        desired_value_pln: Decimal,
+        asset_price: Decimal,
     ):
-        asset_price_in_pln = self._calculate_asset_price_in_pln(asset_price, asset_base_currency)
-        return desired_value_pln / asset_price_in_pln
+        asset_price_in_pln = self._calculate_asset_price_in_pln(
+            asset_price, asset_base_currency
+        )
+        return round(desired_value_pln / asset_price_in_pln)
 
-    def _calculate_asset_price_in_pln(self, asset_price: Decimal, asset_base_currency: Currency):
+    def _calculate_asset_price_in_pln(
+        self, asset_price: Decimal, asset_base_currency: Currency
+    ):
         if asset_base_currency == Currency.PLN:
             return asset_price
         if asset_base_currency == Currency.USD:
             return asset_price * self._get_symbol_ask(Symbol.USD_PLN)
         raise Exception("Unsupported currency")
-
-    def _calculate_volume(
-        self, usd_pln_ask: Decimal, symbol_ask: Decimal, desired_value_pln: Decimal
-    ):
-        return round(desired_value_pln / (usd_pln_ask * symbol_ask))
 
     def _calculate_price(self, price):
         epsilon = 1

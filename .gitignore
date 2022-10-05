@@ -129,9 +129,10 @@ dmypy.json
 .pyre/
 .env.yaml
 dca.code-workspace
-terraform/.terraform.lock.hcl
-terraform/credentials.json
-terraform/terraform.tfstate.backup
-terraform/terraform.tfstate
-terraform/tfplan
-terraform/.terraform
+.terraform.lock.hcl
+credentials.json
+terraform.tfstate.backup
+terraform.tfstate
+tfplan
+.terraform
+terraform.tfvars

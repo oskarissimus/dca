@@ -63,3 +63,14 @@ gcloud projects get-iam-policy <YOUR GCLOUD PROJECT>  \
 --format='table(bindings.role)' \
 --filter="bindings.members:<YOUR SERVICE ACCOUNT>"
 ```
+
+# roles for terraform user
+
+roles/cloudfunctions.admin
+roles/cloudscheduler.admin
+roles/iam.securityAdmin
+roles/iam.serviceAccountUser
+roles/pubsub.admin
+roles/secretmanager.admin
+roles/serviceusage.serviceUsageAdmin
+roles/storage.admin
