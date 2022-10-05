@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 
 class Symbol(str, Enum):
-    CSPX_UK = "CSPX.UK_9"  # SNP 500
+    CSPX_UK = "CSPX.UK"  # SNP 500
     IBTA_UK = "IBTA.UK"  # USA Bonds
     USD_PLN = "USDPLN"
 
