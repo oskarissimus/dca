@@ -17,6 +17,8 @@ class Mode(str, Enum):
 
 class Symbol(str, Enum):
     BTC_PLN = "BTC-PLN"
+    ETH_PLN = "ETH-PLN"
+    LTC_PLN = "LTC-PLN"
 
 
 class ZondaOfferRequestDTO(BaseModel):
