@@ -1,0 +1,17 @@
+bindings:
+  - members:
+      - serviceAccount:function@dca-2137.iam.gserviceaccount.com
+      - serviceAccount:897413395077-compute@developer.gserviceaccount.com
+    role: roles/artifactregistry.reader
+  - members:
+      - serviceAccount:service-897413395077@gcp-sa-artifactregistry.iam.gserviceaccount.com
+    role: roles/artifactregistry.serviceAgent
+  - members:
+      - serviceAccount:897413395077-compute@developer.gserviceaccount.com
+    role: roles/editor
+  - members:
+      - serviceAccount:terraform@dca-2137.iam.gserviceaccount.com
+      - user:oskarissimus@gmail.com
+    role: roles/owner
+etag: BwYgDvaE-Ac=
+version: 1

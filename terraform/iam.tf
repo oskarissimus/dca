@@ -1,5 +1,6 @@
 resource "google_service_account" "function" {
   account_id = "function"
+  depends_on = [google_project_service.iam]
 }
 
 resource "google_secret_manager_secret_iam_binding" "function_xtb_user_id" {

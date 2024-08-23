@@ -66,6 +66,7 @@ gcloud projects get-iam-policy <YOUR GCLOUD PROJECT>  \
 
 # roles for terraform user
 
+```
 roles/cloudfunctions.admin
 roles/cloudscheduler.admin
 roles/iam.securityAdmin
@@ -74,3 +75,12 @@ roles/pubsub.admin
 roles/secretmanager.admin
 roles/serviceusage.serviceUsageAdmin
 roles/storage.admin
+```
+
+# quickstart guide
+
+1. create project in gcp
+2. install gcloud cli
+3. `gcloud auth application-default login`
+4. `gcloud config set project PROJECT_ID`
+5. `gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com`
