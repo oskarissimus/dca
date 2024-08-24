@@ -1,31 +1,31 @@
-# DCA
+# 💸 DCA
 
-Dollar-cost averaging for xtb and zonda. Made with python and terraform on gcp.
+Dollar-cost averaging for xtb and zonda. Made with 🐍 Python and 🌐 Terraform on ☁️ GCP.
 
-# Quickstart guide
+# 🚀 Quickstart Guide
 
-## 1. Prerequisites
+## 1. 🛠️ Prerequisites
 
-1. Create project in gcp
-2. Install gcloud cli
-3. Login into gcloud
+1. 📁 Create project in GCP
+2. 🖥️ Install gcloud CLI
+3. 🔐 Login into gcloud
    ```bash
    gcloud auth application-default login
    ```
-4. Set env var for future use
+4. 🌍 Set env var for future use
    ```bash
    export PROJECT_ID=<your project id here>
    ```
-5. Set default project
+5. 🔧 Set default project
    ```bash
    gcloud config set project $PROJECT_ID
    ```
-6. Enable crucial services for terraform to work
+6. ✅ Enable crucial services for Terraform to work
    ```bash
    gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com
    ```
 
-## 2. Setup service account and credentials
+## 2. 🔐 Setup Service Account and Credentials
 
 ```bash
 gcloud service-account create terraform
@@ -34,22 +34,16 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA"
 gcloud iam service-accounts keys create credentials.json --iam-account=$SA
 ```
 
-## 3. Setup terraform
+## 3. 🔧 Setup Terraform
 
-1. Create `terraform.tfvars` file based on `variables.tf` file. Fill in all required values.
-2. `terraform init`
-3. Enable all required services before building resources. There is [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesnt happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we wont be annoyed by any errors `terraform apply -target=module.project-services && sleep 60`
+1. 📄 Create `terraform.tfvars` file based on `variables.tf` file. Fill in all required values.
+2. 🛠️ `terraform init`
+3. ⏳ Enable all required services before building resources. There is a [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesn’t happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we won’t be annoyed by any errors `terraform apply -target=module.project-services && sleep 60`
 
-## 4. Deploy cloud function and other resources
+## 4. 🚀 Deploy Cloud Function and Other Resources
 
 ```bash
 terraform apply
 ```
 
-## 5. Profit
-
-# Scratchpad
-
-```
-poetry export -f requirements.txt --output requirements.txt --without-hashes
-```
+## 5. 💰 Profit
