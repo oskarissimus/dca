@@ -84,3 +84,8 @@ roles/storage.admin
 3. `gcloud auth application-default login`
 4. `gcloud config set project PROJECT_ID`
 5. `gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com`
+6. `gcloud service-account create terraform`
+7. `gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:terraform@PROJECT_ID.iam.gserviceaccount.com" --role="roles/owner"`
+8. `gcloud iam service-accounts keys create credentials.json --iam-account=terraform@dca-2138.iam.gserviceaccount.com`
+9. `terraform init`
+10. `terraform apply`
