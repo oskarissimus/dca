@@ -69,7 +69,6 @@ resource "google_cloudfunctions_function" "function" {
     google_secret_manager_secret_iam_binding.function_xtb_user_id,
     google_secret_manager_secret_iam_binding.function_zonda_api_key,
     google_secret_manager_secret_iam_binding.function_zonda_api_secret,
-    google_project_service.cloudfunctions,
   ]
 }
 

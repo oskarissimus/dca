@@ -77,15 +77,48 @@ roles/serviceusage.serviceUsageAdmin
 roles/storage.admin
 ```
 
-# quickstart guide
+# Quickstart guide
 
-1. create project in gcp
-2. install gcloud cli
-3. `gcloud auth application-default login`
-4. `gcloud config set project PROJECT_ID`
-5. `gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com`
-6. `gcloud service-account create terraform`
-7. `gcloud projects add-iam-policy-binding PROJECT_ID --member="serviceAccount:terraform@PROJECT_ID.iam.gserviceaccount.com" --role="roles/owner"`
-8. `gcloud iam service-accounts keys create credentials.json --iam-account=terraform@dca-2138.iam.gserviceaccount.com`
-9. `terraform init`
-10. `terraform apply`
+## 1. Prerequisites
+
+1. Create project in gcp
+2. Install gcloud cli
+3. Login into gcloud
+   ```bash
+   gcloud auth application-default login
+   ```
+4. Set env var for future use
+   ```bash
+   export PROJECT_ID=<your project id here>
+   ```
+5. Set default project
+   ```bash
+   gcloud config set project $PROJECT_ID
+   ```
+6. Enable crucial services for terraform to work
+   ```bash
+   gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com
+   ```
+
+## 2. Setup service account and credentials
+
+```bash
+gcloud service-account create terraform
+export SA=terraform@$PROJECT_ID.iam.gserviceaccount.com
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA" --role="roles/owner"
+gcloud iam service-accounts keys create credentials.json --iam-account=$SA
+```
+
+## 3. Setup terraform
+
+1. Create `terraform.tfvars` file based on `variables.tf` file. Fill in all required values.
+2. `terraform init`
+3. Enable all required services before building resources. There is [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesnt happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we wont be annoyed by any errors `terraform apply -target=module.project-services && sleep 60`
+
+## 4. Deploy cloud function and other resources
+
+```bash
+terraform apply
+```
+
+## 5. Profit

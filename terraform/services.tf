@@ -1,73 +1,20 @@
-resource "google_project_service" "secretmanager" {
-  provider           = google
-  service            = "secretmanager.googleapis.com"
-  disable_on_destroy = false
-}
+module "project-services" {
+  source  = "terraform-google-modules/project-factory/google//modules/project_services"
+  version = "~> 15.0"
 
-resource "google_project_service" "cloudfunctions" {
-  provider           = google
-  service            = "cloudfunctions.googleapis.com"
-  depends_on         = [google_project_service.logging]
-  disable_on_destroy = false
-}
+  project_id                  = var.project
+  disable_services_on_destroy = false
 
-resource "google_project_service" "cloudbuild" {
-  provider           = google
-  service            = "cloudbuild.googleapis.com"
-  disable_on_destroy = false
+  activate_apis = [
+    "secretmanager.googleapis.com",
+    "cloudfunctions.googleapis.com",
+    "cloudbuild.googleapis.com",
+    "iam.googleapis.com",
+    "containerregistry.googleapis.com",
+    "cloudscheduler.googleapis.com",
+    "pubsub.googleapis.com",
+    "logging.googleapis.com",
+    "cloudapis.googleapis.com",
+    "compute.googleapis.com",
+  ]
 }
-
-resource "google_project_service" "iam" {
-  provider           = google
-  service            = "iam.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "containerregistry" {
-  provider           = google
-  service            = "containerregistry.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "cloudscheduler" {
-  provider           = google
-  service            = "cloudscheduler.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "pubsub" {
-  provider           = google
-  service            = "pubsub.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "logging" {
-  provider           = google
-  service            = "logging.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "cloudapis" {
-  provider           = google
-  service            = "cloudapis.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "compute" {
-  provider           = google
-  service            = "compute.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "cloudresourcemanager" {
-  provider           = google
-  service            = "cloudresourcemanager.googleapis.com"
-  disable_on_destroy = false
-}
-
-resource "google_project_service" "serviceusage" {
-  provider           = google
-  service            = "serviceusage.googleapis.com"
-  disable_on_destroy = false
-}
-
