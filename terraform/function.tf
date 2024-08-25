@@ -31,7 +31,8 @@ resource "google_cloudfunctions_function" "function" {
     delete = "2m"
   }
 
-  service_account_email = google_service_account.function.email
+  service_account_email = google_service_account.function_runner.email
+  build_service_account = google_service_account.function_builder.id
 
   secret_environment_variables {
     key     = "XTB_USER_ID"
@@ -62,7 +63,11 @@ resource "google_cloudfunctions_function" "function" {
   }
   depends_on = [
     google_secret_manager_secret_version.versions,
-    google_secret_manager_secret_iam_binding.bindings
+    google_secret_manager_secret_iam_binding.bindings,
+    google_project_iam_member.builder_artifact_registry_writer,
+    google_project_iam_member.builder_storage_object_admin,
+    google_project_iam_member.builder_logging_writer,
+    google_storage_bucket_iam_member.builder
   ]
 }
 
