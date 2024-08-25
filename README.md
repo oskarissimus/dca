@@ -60,3 +60,60 @@ terraform apply
 ```
 
 #### 5. 💰 Profit
+
+## 🏗️ Architecture
+
+Cloud function is a central point of this system. It is written in python with 2 API clients (xtb and zonda). Those clients are built by a factory function. There is also a cloud scheduler that periodicaly sends predefined message to pubsub that triggers the cloud function.
+
+## 🔧 Configuration
+
+There are 2 places to interact with this bot
+
+1. json files in `terraform/commands/` dir
+2. schedules in `terraform/schedules.tf` file
+
+Contents of JSON files are sent to pubsub on a given schedule.
+
+### Adding new schedule
+
+Just copy some existing schedule inside `terraform/schedules.tf` and adjust its values. You might also want to create new JSON file with some other amounts, symbols or markets and reference it in new schedule.
+
+### Modifying command
+
+Commands are JSON objects with 3 keys as in example below
+
+```json
+{
+  "exchange_name": "zonda",
+  "symbol": "BTC-PLN",
+  "desired_value_pln": 6
+}
+```
+
+- currently valid `exchange_name` are `"zonda"` `"xtb"`
+- `symbol` can be anything that given exchange supports
+- `desired_value_pln` speaks for itself - number of units to buy will be determined by `desired_value_pln / price`
+
+### Modyfing schedule
+
+Each schedule is technically `google_cloud_scheduler_job` as in example below:
+
+```terraform
+resource "google_cloud_scheduler_job" "buy_btc_twice_a_day" {
+  name      = "buy_btc_twice_a_day"
+  schedule  = "0 10,22 * * *"
+  time_zone = "Europe/Warsaw"
+  paused    = var.schedules_paused
+  region    = var.region
+  pubsub_target {
+    topic_name = google_pubsub_topic.buy_market.id
+    data       = filebase64(var.buy_btc_command_file)
+  }
+}
+```
+
+There are 3 important things here
+
+- `name` (in this case `buy_btc_twice_a_day`) - something unique
+- `schedule` - cron expression (in this case `"0 10,22 * * *"`)
+- `data`

@@ -25,3 +25,15 @@ resource "google_secret_manager_secret_iam_binding" "function_zonda_api_secret" 
   role      = "roles/secretmanager.secretAccessor"
   members   = ["serviceAccount:${google_service_account.function.email}"]
 }
+
+resource "google_service_account_iam_member" "gce-default-account-iam" {
+  service_account_id = data.google_service_account.terraform.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${google_service_account.function.email}"
+}
+
+data "google_service_account" "terraform" {
+  account_id = "terraform"
+}
+
+data "google_compute_default_service_account" "default" {}
