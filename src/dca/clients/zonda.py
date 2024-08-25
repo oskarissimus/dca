@@ -23,8 +23,8 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
         price = self.fetch_price(symbol)
         amount = self.calculate_amount(desired_value_pln, price)
 
-        payload = ZondaOfferRequestDTO.buy_market(amount=amount).json()
-        url = f"{self._base_url}/trading/offer/{symbol}"
+        payload = ZondaOfferRequestDTO.buy_market(amount=amount).model_dump_json()
+        url = f"{self._base_url}/trading/offer/{symbol.value}"
         response = self._make_request("POST", url, payload)
         return response.text
 
@@ -32,11 +32,9 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
         return desired_value / price
 
     def fetch_price(self, symbol: Symbol) -> Decimal:
-        url = f"{self._base_url}/trading/ticker/{symbol}"
+        url = f"{self._base_url}/trading/ticker/{symbol.value}"
         response = requests.get(url, timeout=5)
-        print(response.text)
-        print(symbol.value)
-        return ZondaTickerResponseDTO.parse_raw(response.text).ticker.rate
+        return ZondaTickerResponseDTO.model_validate_json(response.text).ticker.rate
 
     def _make_request(self, method: str, url: str, payload: str = "") -> requests.Response:
         current_timestamp = int(dt.datetime.now().timestamp())

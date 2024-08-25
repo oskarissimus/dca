@@ -10,7 +10,7 @@ from dca.settings import Settings
 @functions_framework.cloud_event
 def buy_market(cloud_event):
     raw_message = base64.b64decode(cloud_event.data["message"]["data"]).decode()
-    message = Message.parse_raw(raw_message)
+    message = Message.model_validate_json(raw_message)
     settings = Settings()
     client = build_exchange_client_by_name(message.exchange_name, settings=settings)
     symbol = client.parse_symbol(message.symbol)

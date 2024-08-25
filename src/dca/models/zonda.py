@@ -23,9 +23,9 @@ class Symbol(str, Enum):
 
 class ZondaOfferRequestDTO(BaseModel):
     offerType: OfferType
-    amount: Optional[Decimal]
-    price: Optional[Decimal]
-    rate: Optional[Decimal]
+    amount: Optional[Decimal] = None
+    price: Optional[Decimal] = None
+    rate: Optional[Decimal] = None
     postOnly: bool
     mode: Mode
     fillOrKill: bool
@@ -34,9 +34,9 @@ class ZondaOfferRequestDTO(BaseModel):
     @classmethod
     def buy_market(cls, amount: Decimal):
         return cls(
-            offerType=OfferType.BUY,
+            offerType=OfferType.BUY.value,
             amount=f"{amount:.8f}",
-            mode=Mode.MARKET,
+            mode=Mode.MARKET.value,
             postOnly=False,
             fillOrKill=False,
             immediateOrCancel=False,
