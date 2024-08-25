@@ -21,27 +21,32 @@ If you know your way around Terraform and GCP, here is a quick guide to get you 
 
 1. Create project in GCP
 2. Install gcloud CLI
-3. Login into gcloud
+3. Go to terraform dir `cd terraform`
+4. Login into gcloud
    ```bash
    gcloud auth application-default login
    ```
-4. Set env var for future use
+5. Set env var for future use
    ```bash
    export PROJECT_ID=<your project id here>
    ```
-5. Set default project
+6. Set default project
    ```bash
    gcloud config set project $PROJECT_ID
    ```
-6. Enable crucial services for Terraform to work
+7. Enable crucial services for Terraform to work
    ```bash
    gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com
+   ```
+8. Set quota project
+   ```bash
+   gcloud auth application-default set-quota-project $PROJECT_ID
    ```
 
 #### 2. 🔐 Setup Service Account and Credentials
 
 ```bash
-gcloud service-account create terraform
+gcloud iam service-accounts create terraform
 export SA=terraform@$PROJECT_ID.iam.gserviceaccount.com
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA" --role="roles/owner"
 gcloud iam service-accounts keys create credentials.json --iam-account=$SA
@@ -50,8 +55,16 @@ gcloud iam service-accounts keys create credentials.json --iam-account=$SA
 #### 3. 🔧 Setup Terraform
 
 1. Create `terraform.tfvars` file based on `variables.tf` file. Fill in all required values.
-2. `terraform init`
-3. Enable all required services before building resources. There is a [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesn’t happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we won’t be annoyed by any errors `terraform apply -target=module.project-services && sleep 60`
+2. Initialize Terraform
+
+   ```bash
+   terraform init
+   ```
+
+3. Enable all required services before building resources. There is a [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesn’t happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we won’t be annoyed by any errors
+   ```bash
+   terraform apply -target=module.project-services && sleep 60
+   ```
 
 #### 4. 🚀 Deploy Cloud Function and Other Resources
 
