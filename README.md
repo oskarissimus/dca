@@ -17,7 +17,7 @@ If you know your way around Terraform and GCP, here is a quick guide to get you 
 
 ### Detailed Guide
 
-### 1. 🛠️ Prerequisites
+#### 1. 🛠️ Prerequisites
 
 1. Create project in GCP
 2. Install gcloud CLI
@@ -38,7 +38,7 @@ If you know your way around Terraform and GCP, here is a quick guide to get you 
    gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com
    ```
 
-## 2. 🔐 Setup Service Account and Credentials
+#### 2. 🔐 Setup Service Account and Credentials
 
 ```bash
 gcloud service-account create terraform
@@ -47,16 +47,16 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA"
 gcloud iam service-accounts keys create credentials.json --iam-account=$SA
 ```
 
-## 3. 🔧 Setup Terraform
+#### 3. 🔧 Setup Terraform
 
 1. Create `terraform.tfvars` file based on `variables.tf` file. Fill in all required values.
 2. `terraform init`
 3. Enable all required services before building resources. There is a [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesn’t happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we won’t be annoyed by any errors `terraform apply -target=module.project-services && sleep 60`
 
-## 4. 🚀 Deploy Cloud Function and Other Resources
+#### 4. 🚀 Deploy Cloud Function and Other Resources
 
 ```bash
 terraform apply
 ```
 
-## 5. 💰 Profit
+#### 5. 💰 Profit
