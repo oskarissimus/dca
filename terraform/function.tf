@@ -14,7 +14,7 @@ resource "google_storage_bucket_object" "zip" {
 
 resource "google_cloudfunctions_function" "function" {
   name                  = "buy_market"
-  runtime               = "python38"
+  runtime               = "python312"
   entry_point           = "buy_market"
   source_archive_bucket = google_storage_bucket.function_bucket.name
   source_archive_object = google_storage_bucket_object.zip.name
