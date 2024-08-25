@@ -2,9 +2,22 @@
 
 Dollar-cost averaging for xtb and zonda. Made with 🐍 Python and 🌐 Terraform on ☁️ GCP.
 
-# 🚀 Quickstart Guide
+## Setup
 
-## 1. 🛠️ Prerequisites
+If you know your way around Terraform and GCP, here is a quick guide to get you started. If you are new to Terraform, GCP, or both, please refer to the detailed guide below.
+
+### 🚀 Quickstart Guide
+
+1. Create `terraform.tfvars` file based on `variables.tf`
+2. `terraform init`
+3. `terraform apply -target=module.project-services`
+4. Wait some time for services to be enabled
+5. `terraform apply`
+6. Enjoy
+
+### Detailed Guide
+
+### 1. 🛠️ Prerequisites
 
 1. Create project in GCP
 2. Install gcloud CLI
