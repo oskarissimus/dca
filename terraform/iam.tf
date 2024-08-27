@@ -42,19 +42,19 @@ resource "google_secret_manager_secret_iam_binding" "zonda_api_secret" {
 }
 
 resource "google_project_iam_member" "builder_artifact_registry_writer" {
-  project = var.project
+  project = data.google_project.default.project_id
   role    = "roles/artifactregistry.writer"
   member  = google_service_account.function_builder.member
 }
 
 resource "google_project_iam_member" "builder_storage_object_admin" {
-  project = var.project
+  project = data.google_project.default.project_id
   role    = "roles/storage.objectAdmin"
   member  = google_service_account.function_builder.member
 }
 
 resource "google_project_iam_member" "builder_logging_writer" {
-  project = var.project
+  project = data.google_project.default.project_id
   role    = "roles/logging.logWriter"
   member  = google_service_account.function_builder.member
 }

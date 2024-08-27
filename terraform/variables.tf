@@ -1,5 +1,6 @@
-variable "project" {}
-variable "region" {}
+variable "region" {
+  default = "europe-central2"
+}
 variable "credentials_file" {}
 variable "xtb_user_id" {}
 variable "xtb_password" {}
