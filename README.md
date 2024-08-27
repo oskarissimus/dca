@@ -7,6 +7,7 @@ I chose GCP because contrary to what you might think is actually cheaper. Paid r
 1. pubsub (cheap because small amount of messages)
 2. cloud function (cheap because small amount of executions)
 3. cloud scheduler (cheap because small amount of schedules)
+
 Basically as in the cloud you will be charged for usage. My use case was to buy some crypto 6 times a day and some other assets couple times a month. I paid something like 3 PLN per month so it was like very cheap. I did all this because of this. alternative was to have own vps running cron at all times. and even cheapest vps would be 10x more expensive.
 
 ## Setup
