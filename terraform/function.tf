@@ -36,25 +36,25 @@ resource "google_cloudfunctions_function" "function" {
 
   secret_environment_variables {
     key     = "XTB_USER_ID"
-    secret  = google_secret_manager_secret.secrets["xtb_user_id"].secret_id
+    secret  = google_secret_manager_secret.xtb_user_id.secret_id
     version = "latest"
   }
 
   secret_environment_variables {
     key     = "XTB_PASSWORD"
-    secret  = google_secret_manager_secret.secrets["xtb_password"].secret_id
+    secret  = google_secret_manager_secret.xtb_password.secret_id
     version = "latest"
   }
 
   secret_environment_variables {
     key     = "ZONDA_API_KEY"
-    secret  = google_secret_manager_secret.secrets["zonda_api_key"].secret_id
+    secret  = google_secret_manager_secret.zonda_api_key.secret_id
     version = "latest"
   }
 
   secret_environment_variables {
     key     = "ZONDA_API_SECRET"
-    secret  = google_secret_manager_secret.secrets["zonda_api_secret"].secret_id
+    secret  = google_secret_manager_secret.zonda_api_secret.secret_id
     version = "latest"
   }
 
@@ -62,8 +62,14 @@ resource "google_cloudfunctions_function" "function" {
     XTB_API_PORT = var.xtb_api_port
   }
   depends_on = [
-    google_secret_manager_secret_version.versions,
-    google_secret_manager_secret_iam_binding.bindings,
+    google_secret_manager_secret_version.xtb_user_id,
+    google_secret_manager_secret_version.xtb_password,
+    google_secret_manager_secret_version.zonda_api_key,
+    google_secret_manager_secret_version.zonda_api_secret,
+    google_secret_manager_secret_iam_binding.xtb_user_id,
+    google_secret_manager_secret_iam_binding.xtb_password,
+    google_secret_manager_secret_iam_binding.zonda_api_key,
+    google_secret_manager_secret_iam_binding.zonda_api_secret,
     google_project_iam_member.builder_artifact_registry_writer,
     google_project_iam_member.builder_storage_object_admin,
     google_project_iam_member.builder_logging_writer,

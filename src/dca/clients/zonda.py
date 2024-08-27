@@ -26,6 +26,7 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
         payload = ZondaOfferRequestDTO.buy_market(amount=amount).model_dump_json()
         url = f"{self._base_url}/trading/offer/{symbol.value}"
         response = self._make_request("POST", url, payload)
+        print(response.text)
         return response.text
 
     def calculate_amount(self, desired_value: Decimal, price: Decimal) -> Decimal:
