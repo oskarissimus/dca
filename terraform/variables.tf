@@ -1,7 +1,4 @@
-variable "region" {
-  default = "europe-central2"
-}
-variable "credentials_file" {}
+variable "region" { default = "europe-central2" }
 variable "xtb_user_id" {}
 variable "xtb_password" {}
 variable "xtb_api_port" {}
