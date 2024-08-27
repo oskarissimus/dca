@@ -3,12 +3,14 @@
 Dollar-cost averaging for xtb and zonda. Made with 🐍 Python and 🌐 Terraform on ☁️ GCP.
 
 ## Cost
-I chose GCP because contrary to what you might think is actually cheaper. Paid resources are
-1. pubsub (cheap because small amount of messages)
-2. cloud function (cheap because small amount of executions)
-3. cloud scheduler (cheap because small amount of schedules)
 
-Basically as in the cloud you will be charged for usage. My use case was to buy some crypto 6 times a day and some other assets couple times a month. I paid something like 3 PLN per month so it was like very cheap. I did all this because of this. alternative was to have own vps running cron at all times. and even cheapest vps would be 10x more expensive.
+I chose Google Cloud Platform (GCP) because, contrary to what you might think, it is actually more cost-effective. The paid resources include:
+
+- **Pub/Sub**: Inexpensive due to the small number of messages.
+- **Cloud Functions**: Affordable because of the low number of executions.
+- **Cloud Scheduler**: Cost-effective given the minimal number of scheduled tasks.
+
+Since cloud services charge based on usage, my specific needs—purchasing some cryptocurrency six times a day and other assets a couple of times a month—resulted in a monthly cost of approximately 3 PLN, which is very cheap. I opted for this setup because the alternative would have been running my own VPS with a constant cron job, which would have been at least ten times more expensive.
 
 ## Setup
 
