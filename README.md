@@ -2,6 +2,13 @@
 
 Dollar-cost averaging for xtb and zonda. Made with 🐍 Python and 🌐 Terraform on ☁️ GCP.
 
+## Cost
+I chose GCP because contrary to what you might think is actually cheaper. Paid resources are
+1. pubsub (cheap because small amount of messages)
+2. cloud function (cheap because small amount of executions)
+3. cloud scheduler (cheap because small amount of schedules)
+Basically as in the cloud you will be charged for usage. My use case was to buy some crypto 6 times a day and some other assets couple times a month. I paid something like 3 PLN per month so it was like very cheap. I did all this because of this. alternative was to have own vps running cron at all times. and even cheapest vps would be 10x more expensive.
+
 ## Setup
 
 If you know your way around Terraform and GCP, here is a quick guide to get you started. If you are new to Terraform, GCP, or both, please refer to the detailed guide below.
