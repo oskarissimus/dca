@@ -109,3 +109,7 @@ schedules = {
 - `schedule` - cron expression (in this case `"0 10,22 * * *"`)
 
 To add new schedule, just add new key-value pair to `schedules` map.
+
+## Zonda API
+
+Required API permission is **Zarządzanie zamówieniami i zmiana konfiguracji rynku**
