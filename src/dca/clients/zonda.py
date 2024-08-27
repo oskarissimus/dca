@@ -13,7 +13,7 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
     def __init__(self, api_key: str, api_secret: str) -> None:
         self._api_key = api_key
         self._api_secret = api_secret
-        self._base_url = "https://api.zonda.exchange/rest"
+        self._base_url = "https://api.zondacrypto.exchange/rest"
 
     def buy_market(self, symbol: Symbol, desired_value_pln: Decimal):
         if not isinstance(symbol, Symbol):
