@@ -113,3 +113,12 @@ To add new schedule, just add new key-value pair to `schedules` map.
 ## Zonda API
 
 Required API permission is **Zarządzanie zamówieniami i zmiana konfiguracji rynku**
+
+## Screenshots
+### Deployed schedule
+![Deployed schedule](https://github.com/user-attachments/assets/14f689e9-93ed-4bf7-8479-aa6ac099c67c)
+
+### Deployed cloud function
+![Deployed cloud function](https://github.com/user-attachments/assets/9ff00a81-00c2-4497-a6b3-317ec989a15f)
+
+
