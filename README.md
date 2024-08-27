@@ -10,7 +10,7 @@ I chose Google Cloud Platform (GCP) because, contrary to what you might think, i
 - **Cloud Functions**: Affordable because of the low number of executions.
 - **Cloud Scheduler**: Cost-effective given the minimal number of scheduled tasks.
 
-Since cloud services charge based on usage, my specific needs—purchasing some cryptocurrency six times a day and other assets a couple of times a month—resulted in a monthly cost of approximately 3 PLN, which is very cheap. I opted for this setup because the alternative would have been running my own VPS with a constant cron job, which would have been at least ten times more expensive.
+Since cloud services charge based on usage, my specific needs - purchasing some cryptocurrency six times a day and other assets a couple of times a month - resulted in a monthly cost of approximately 3 PLN, which is very cheap. I opted for this setup because the alternative would have been running my own VPS with a constant cron job, which would have been at least ten times more expensive.
 
 ## Setup
 
