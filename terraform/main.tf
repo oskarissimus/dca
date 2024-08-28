@@ -8,3 +8,7 @@ terraform {
 }
 
 data "google_project" "default" {}
+
+provider "google" {
+  region = var.region
+}
