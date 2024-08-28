@@ -2,6 +2,8 @@
 
 Dollar-cost averaging for xtb and zonda. Made with 🐍 Python and 🌐 Terraform on ☁️ GCP.
 
+[![Run on Google Cloud](https://deploy.cloud.run/button.svg)](https://deploy.cloud.run)
+
 ## Cost
 
 I chose Google Cloud Platform (GCP) because, contrary to what you might think, it is actually more cost-effective. The paid resources include:
@@ -115,12 +117,15 @@ To add new schedule, just add new key-value pair to `schedules` map.
 Required API permission is **Zarządzanie zamówieniami i zmiana konfiguracji rynku**
 
 ## Screenshots
+
 ### Deployed schedule
+
 ![Deployed schedule](https://github.com/user-attachments/assets/14f689e9-93ed-4bf7-8479-aa6ac099c67c)
 
 ### Deployed cloud function
+
 ![Deployed cloud function](https://github.com/user-attachments/assets/9ff00a81-00c2-4497-a6b3-317ec989a15f)
 
 ### Actual transactions on Zonda
-![Actual transactions on Zonda](https://github.com/user-attachments/assets/34877065-236a-41b7-b871-8e862dab6c3f)
 
+![Actual transactions on Zonda](https://github.com/user-attachments/assets/34877065-236a-41b7-b871-8e862dab6c3f)
