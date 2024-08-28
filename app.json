@@ -1,0 +1,33 @@
+{
+    "name": "foo-app",
+    "env": {
+        "TF_VAR_xtb_user_id": {
+            "required": false,
+            "value": "1234"
+        },
+        "TF_VAR_xtb_password": {
+            "required": false,
+            "value": "password"
+        },
+        "TF_VAR_zonda_api_key": {
+            "required": true,
+            "value": "1234"
+        },
+        "TF_VAR_zonda_api_secret": {
+            "required": true,
+            "value": "password"
+        }
+    },
+    "build": {
+        "skip": true
+    },
+    "hooks": {
+        "prebuild": {
+            "commands": [
+                "terraform init",
+                "terraform apply -target=module.project-services -auto-approve && sleep 60",
+                "terraform apply -auto-approve"
+            ]
+        }
+    }
+}

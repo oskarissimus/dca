@@ -1,9 +1,20 @@
 variable "region" { default = "europe-central2" }
-variable "xtb_user_id" {}
-variable "xtb_password" {}
-variable "xtb_api_port" {}
-variable "zonda_api_key" {}
-variable "zonda_api_secret" {}
+variable "xtb_user_id" {
+  type = number
+}
+variable "xtb_password" {
+  type = string
+}
+variable "xtb_api_port" {
+  type    = number
+  default = 5124
+}
+variable "zonda_api_key" {
+  type = string
+}
+variable "zonda_api_secret" {
+  type = string
+}
 variable "schedules_paused" {
   type    = bool
   default = true
