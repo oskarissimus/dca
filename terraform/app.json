@@ -24,6 +24,7 @@
     "hooks": {
         "prebuild": {
             "commands": [
+                "gcloud config set project $GOOGLE_CLOUD_PROJECT",
                 "gcloud services enable serviceusage.googleapis.com cloudresourcemanager.googleapis.com && sleep 30",
                 "terraform init",
                 "terraform apply -target=module.project-services -auto-approve && sleep 60",
