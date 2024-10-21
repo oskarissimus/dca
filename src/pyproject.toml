@@ -18,7 +18,7 @@ pydantic-settings = "^2.5.2"
 [tool.poetry.dev-dependencies]
 ipykernel = "^6.15.2"
 pytest = "^8.3"
-mypy = "^1.11"
+mypy = "^1.12"
 pylint = "^3.3.0"
 black = "^24.8.0"
 isort = "^5.10.1"
