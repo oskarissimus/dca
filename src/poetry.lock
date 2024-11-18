@@ -463,13 +463,13 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 name = "functions-framework"
-version = "3.8.1"
+version = "3.8.2"
 description = "An open source FaaS (Function as a service) framework for writing portable Python functions -- brought to you by the Google Cloud Functions team."
 optional = false
 python-versions = "<4,>=3.5"
 files = [
-    {file = "functions_framework-3.8.1-py3-none-any.whl", hash = "sha256:fc5a09b55753838d438d473bdf8407182b47b7717404af093a4ea4250b54b326"},
-    {file = "functions_framework-3.8.1.tar.gz", hash = "sha256:f976d59701f9a6bbb2fd192bf5407f691c274bbeb0dc5b7e07d76a3400fac1e7"},
+    {file = "functions_framework-3.8.2-py3-none-any.whl", hash = "sha256:ecbe8e4566efca9ed1718f210ac92d47fc47ec3a448d2bca3b4bb5888bceca08"},
+    {file = "functions_framework-3.8.2.tar.gz", hash = "sha256:109bcdca01244067052a605536b44d042903b3805d093cd32e343ba5affffc90"},
 ]
 
 [package.dependencies]
@@ -1825,4 +1825,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "07bdfa24c11b1bc1a96ac11837ae113dad1cbf9079e5f04d187b663e1e9d7425"
+content-hash = "c1d6b48394cfb921c0802eadabeb441e0e22dd4db54d26ab03b35a0a3c132e2b"
