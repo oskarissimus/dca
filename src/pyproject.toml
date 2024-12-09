@@ -22,7 +22,7 @@ mypy = "^1.13"
 pylint = "^3.3.2"
 black = "^24.10.0"
 isort = "^5.10.1"
-pylint-pydantic = "^0.3.3"
+pylint-pydantic = "^0.3.4"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
