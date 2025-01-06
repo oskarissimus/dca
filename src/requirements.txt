@@ -12,7 +12,7 @@ gunicorn==23.0.0 ; python_version >= "3.12" and python_version < "4" and platfor
 idna==3.8 ; python_version >= "3.12" and python_version < "4.0"
 itsdangerous==2.2.0 ; python_version >= "3.12" and python_version < "4"
 jinja2==3.1.4 ; python_version >= "3.12" and python_version < "4"
-markupsafe==2.1.5 ; python_version >= "3.12" and python_version < "4"
+markupsafe==3.0.2 ; python_version >= "3.12" and python_version < "4"
 packaging==24.1 ; python_version >= "3.12" and python_version < "4"
 pydantic-core==2.20.1 ; python_version >= "3.12" and python_version < "4.0"
 pydantic-settings==2.4.0 ; python_version >= "3.12" and python_version < "4.0"
