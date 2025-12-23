@@ -64,27 +64,43 @@ gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA"
 gcloud iam service-accounts keys create credentials.json --iam-account=$SA
 ```
 
-#### 3. 🔧 Setup Terraform
+#### 3. 🔧 Setup Terraform State Bucket (One-Time)
+
+The Terraform state is stored in a GCS bucket for durability and team collaboration. First, create the state bucket:
+
+```bash
+cd terraform/bootstrap
+terraform init
+terraform apply
+cd ..
+```
+
+#### 4. 🔧 Setup Terraform
 
 1. Create `terraform.tfvars` file based on `variables.tf` file. Fill in all required values.
-2. Initialize Terraform
+2. Initialize Terraform (this will use the remote GCS backend)
 
    ```bash
    terraform init
    ```
 
-3. Enable all required services before building resources. There is a [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesn’t happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we won’t be annoyed by any errors
+   If migrating from local state, use:
+   ```bash
+   terraform init -migrate-state
+   ```
+
+3. Enable all required services before building resources. There is a [known issue](https://registry.terraform.io/providers/hashicorp/google/latest/docs/guides/google_project_service#newly-activated-service-errors) that enabling services doesn't happen instantly, and there is no way to verify it, so explicit sleep 60s is added, so we won't be annoyed by any errors
    ```bash
    terraform apply -target=module.project-services && sleep 60
    ```
 
-#### 4. 🚀 Deploy Cloud Function and Other Resources
+#### 5. 🚀 Deploy Cloud Function and Other Resources
 
 ```bash
 terraform apply
 ```
 
-#### 5. 💰 Profit
+#### 6. 💰 Profit
 
 ## 🏗️ Architecture
 
