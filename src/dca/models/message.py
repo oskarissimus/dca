@@ -1,3 +1,4 @@
+from enum import Enum as PyEnum
 from typing import Union
 
 from pydantic import BaseModel, validator
@@ -7,9 +8,15 @@ from dca.models.xtb import Symbol as XTBSymbol
 from dca.models.zonda import Symbol as ZondaSymbol
 
 
+class Action(str, PyEnum):
+    BUY = "buy"
+    SELL = "sell"
+
+
 class Message(BaseModel):
     exchange_name: str
     symbol: Union[XTBSymbol, ZondaSymbol]
+    action: Action = Action.BUY
     desired_value_pln: int
 
     @validator("exchange_name")

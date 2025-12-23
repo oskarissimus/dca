@@ -29,6 +29,20 @@ class ZondaClient(AbstractExchangeClient):  # pylint: disable=too-few-public-met
         print(response.text)
         return response.text
 
+    def sell_market(self, symbol: Symbol, desired_value_pln: Decimal):
+        if not isinstance(symbol, Symbol):
+            raise InvalidSymbolForExchange(
+                f"Symbol {symbol} is not supported by {self.__class__.__name__}"
+            )
+        price = self.fetch_price(symbol)
+        amount = self.calculate_amount(desired_value_pln, price)
+
+        payload = ZondaOfferRequestDTO.sell_market(amount=amount).model_dump_json()
+        url = f"{self._base_url}/trading/offer/{symbol.value}"
+        response = self._make_request("POST", url, payload)
+        print(response.text)
+        return response.text
+
     def calculate_amount(self, desired_value: Decimal, price: Decimal) -> Decimal:
         return desired_value / price
 

@@ -42,6 +42,17 @@ class ZondaOfferRequestDTO(BaseModel):
             immediateOrCancel=False,
         )
 
+    @classmethod
+    def sell_market(cls, amount: Decimal):
+        return cls(
+            offerType=OfferType.SELL.value,
+            amount=f"{amount:.8f}",
+            mode=Mode.MARKET.value,
+            postOnly=False,
+            fillOrKill=False,
+            immediateOrCancel=False,
+        )
+
 
 class ZondaCurrencyDTO(BaseModel):
     currency: str

@@ -13,5 +13,9 @@ class AbstractExchangeClient(ABC):
         pass
 
     @abstractmethod
+    def sell_market(self, symbol: Enum, desired_value_pln: Decimal):
+        pass
+
+    @abstractmethod
     def parse_symbol(self, symbol_str: str) -> Enum:
         pass

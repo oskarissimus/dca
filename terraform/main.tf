@@ -5,10 +5,16 @@ terraform {
       version = "5.42.0"
     }
   }
+
+  backend "gcs" {
+    bucket = "dca-2025-tfstate"
+    prefix = "terraform/state"
+  }
 }
 
 data "google_project" "default" {}
 
 provider "google" {
-  region = var.region
+  project = "dca-2025"
+  region  = var.region
 }

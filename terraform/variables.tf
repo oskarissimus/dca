@@ -23,6 +23,7 @@ variable "schedules" {
   type = map(object({
     exchange_name     = string
     symbol            = string
+    action            = optional(string, "buy")
     desired_value_pln = number
     schedule          = string
   }))
@@ -31,6 +32,7 @@ variable "schedules" {
     buy_btc_twice_a_day = {
       exchange_name     = "zonda"
       symbol            = "BTC-PLN"
+      action            = "buy"
       desired_value_pln = 6
       schedule          = "0 10,22 * * *"
     }

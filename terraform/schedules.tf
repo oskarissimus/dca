@@ -10,6 +10,7 @@ resource "google_cloud_scheduler_job" "schedule" {
     data = base64encode(jsonencode({
       exchange_name     = each.value.exchange_name
       symbol            = each.value.symbol
+      action            = each.value.action
       desired_value_pln = each.value.desired_value_pln
     }))
   }
